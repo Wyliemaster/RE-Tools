@@ -52,18 +52,15 @@ fn inheritance(input: &str) -> u32 {
     return 0;
 }
 
-fn make_struct(name: &str, size: u32) -> String
-{
+fn make_struct(name: &str, size: u32) -> String {
     let mut response = String::new().to_owned();
-
 
     response.push_str(&format!("struct {} {}\n", name, "{"));
 
     let mut items = size;
     let mut prefix = "_BYTE";
 
-    if size % 4 == 0
-    {
+    if size % 4 == 0 {
         prefix = "_DWORD";
         items = (size / 4) as u32;
     }
@@ -77,12 +74,11 @@ fn make_struct(name: &str, size: u32) -> String
     return response;
 }
 
-
 fn main() {
     let mut input = String::new();
     let mut size = String::new();
 
-    println!("What is your struct called?\n");
+    println!("What is your struct called?");
 
     std::io::stdin().read_line(&mut input).unwrap();
 
@@ -97,4 +93,6 @@ fn main() {
     let res = make_struct(&input, final_size);
 
     println!("{}", res);
+
+    std::io::stdin().read_line(&mut String::new()).unwrap();
 }

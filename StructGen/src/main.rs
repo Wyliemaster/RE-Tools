@@ -27,7 +27,6 @@ fn parse_csv(csv: &str) -> Vec<(String, u32)> {
 
 fn find_struct_size(data: &[(String, u32)], name: &str) -> u32 {
     for elem in data.iter() {
-        println!("{}, {}", elem.0, name);
         if elem.0.trim() == name.trim() {
             return elem.1;
         }

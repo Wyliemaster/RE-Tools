@@ -7,22 +7,21 @@ fn parse_csv(csv: &str) -> Vec<(String, u32)> {
 
     for line in lines {
         let data = line.split(',');
+        let collection: Vec<&str> = data.collect();
 
-        if data.clone().count() != 2 {
+        if collection.len() != 2 {
             panic!("Line: \"{}\" has invalid total of items", line);
         }
 
-        let collection: Vec<&str> = data.collect();
-
-        let csv_struct = (
+        let csv_struct: (String, u32) = (
             collection[0].to_string(),
-            collection[1].parse::<u32>().unwrap(),
+            collection[1].trim().parse::<u32>().unwrap(),
         );
 
         csv_data.push(csv_struct);
     }
 
-    return csv_data;
+    csv_data
 }
 
 fn find_struct_size(data: &[(String, u32)], name: &str) -> u32 {
@@ -32,7 +31,7 @@ fn find_struct_size(data: &[(String, u32)], name: &str) -> u32 {
         }
     }
 
-    return 0;
+    0
 }
 
 fn inheritance(input: &str) -> u32 {
@@ -48,11 +47,11 @@ fn inheritance(input: &str) -> u32 {
             return find_struct_size(&struct_data, components[2]);
         }
     }
-    return 0;
+    0
 }
 
 fn make_struct(name: &str, size: u32) -> String {
-    let mut response = String::new().to_owned();
+    let mut response = String::new();
 
     response.push_str(&format!("struct {} {}\n", name, "{"));
 
@@ -65,12 +64,12 @@ fn make_struct(name: &str, size: u32) -> String {
     }
 
     for x in 0..items {
-        response.push_str(&format!("    {} item_{}\n", prefix, x));
+        response.push_str(&format!("    {} item_{};\n", prefix, x));
     }
 
-    response.push_str("}");
+    response.push('}');
 
-    return response;
+    response
 }
 
 fn main() {
